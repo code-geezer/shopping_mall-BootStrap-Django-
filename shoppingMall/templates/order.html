@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cart | 订单中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico">
+
+    <style>
+        img.logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        span.options {
+            font-weight: bold;
+        }
+
+        label.navbar-text {
+            font-weight: bold;
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            height: 300px;
+        }
+
+        div.add {
+            position: absolute;
+            width: 850px;
+            height: 500px;
+            border: 1px solid darkgrey;
+            box-shadow: darkgrey 0px 0px 30px 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            margin: 0 auto;
+            background-color: aliceblue;
+        }
+    </style>
+
+
+</head>
+
+<body style="background-color: chocolate;">
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-secondary navbar-light">
+            <a class="navbar-brand" href="/homepage/"><img src="/static/image/favicon.ico" class="logo"></a>
+            &nbsp;&nbsp;
+            <ul class="navbar-nav">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="nav-item">
+                    <label class="navbar-text">{{ id }} {{ personal_info.name }} 欢迎您！</label>
+                </li>
+                <li class="nav-item">
+                    <label class="navbar-text">订单中心</label>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/homepage/"><span class="options">返回主页面</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/logout/'"><span class="options">退出登录</span></a>
+                </li>
+            </ul>
+        </nav>
+
+
+        <div class="tab-content">
+            <div id="cart_list" class="container tab-pane active"><br>
+                <div class="col-sm-12">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>订单编号</th>
+                                <th>收货人</th>
+                                <th>电话号码</th>
+                                <th>收货地址</th>
+                                <th>订单金额</th>
+                                <th>下单时间</th>
+                                <th>订单详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in order_list %}
+                            <form action='/order_detail/' method="POST">
+                                {% csrf_token %}
+                                <tr>
+                                    <th>{{ order.orderId }}<input type="text" name="order_id" value={{order.orderId}} style="display: none;"></th>
+                                    <th>{{ order.name }}</th>
+                                    <th>{{ order.number }}</th>
+                                    <th>{{ order.address }}</th>
+                                    <th>{{ order.totalPrice }}</th>
+                                    <th>{{ order.time }}</th>
+                                    <th><button type="submit" class="btn btn-info"style="width: 60px;height: 30px;font-size: 10px;">查看</button></th>
+                                </tr>
+                            </form>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

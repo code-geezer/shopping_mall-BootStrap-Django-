@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page | 登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico">
+
+    <style>
+        div.container {
+            position: absolute;
+            width: 850px;
+            height: 500px;
+            border: 1px solid darkgrey;
+            box-shadow: darkgrey 0px 0px 30px 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0 auto;
+        }
+        div.header{
+            text-align: center;
+        }
+        input.form-control{
+            width: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <br />
+            <h1 style="text-align: center;">登录/Login</h1>
+            <br />
+            <p>Enter login details to get access</p>
+        </div>
+        <form action="/login/" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="user">账号：</label>
+                <input type="text" class="form-control" name="user_id" id="user" placeholder="请输入您的id账号">
+            </div>
+            <div class="form-group">
+                <label for="pwd">密码：</label>
+                <input type="password" class="form-control" name="user_password" id="pwd" placeholder="请输入密码">
+            </div>
+            <div class="form-group">
+                <label class="radio-inline"><input type="radio" name="user_identity" value="user" checked>用户</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label class="radio-inline"><input type="radio" name="user_identity" value="admin">管理员</label>
+            </div>
+            <br /><br />
+            <div class="clearfix">
+                <span class="float-left"><button type="button" onclick="window.location.href='/sign/'" class="btn btn-secondary" style="width: 100px;height: 50px;">注册</button></span>
+                <span class="float-right"><button type="submit" class="btn btn-info" style="width: 100px;height: 50px;">登录</button></span>
+            </div>
+            
+        </form>
+
+    </div>
+
+</body>
+
+</html>

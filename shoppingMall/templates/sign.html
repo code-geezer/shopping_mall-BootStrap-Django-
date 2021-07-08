@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Page | 注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function check() {
+            if (document.getElementById("pwd").value != document.getElementById("pwd_confirm").value) {
+                alert("前后两次输入密码不一致！！！请重新输入！！！");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico">
+
+    <style>
+        div.container {
+            position: absolute;
+            width: 850px;
+            height: 930px;
+            border: 1px solid darkgrey;
+            box-shadow: darkgrey 0px 0px 30px 5px;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -10%);
+            margin: 0 auto;
+        }
+        div.header{
+            text-align: center;
+        }
+        input.form-control{
+            width: 800px;
+        }
+        select.form-control{
+            width: 800px;
+        }
+    </style>
+</head>
+
+<body style="height: 1200px;">
+    <div class="container">
+        <div class="header">
+            <br />
+            <h1 style="text-align: center;">注册/Sign</h1>
+            <p>Enter your information to Signup</p>
+        </div>
+        <form action="/sign/" method="POST" onsubmit="return check()">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="user">账号：</label>
+                <input type="text" class="form-control" name="user_id" id="user" placeholder="请设置一个id账号">
+            </div>
+            <div class="form-group">
+                <label for="pwd">密码：</label>
+                <input type="password" class="form-control" name="user_password" id="pwd" placeholder="请设置您的密码">
+            </div>
+            <div class="form-group">
+                <label for="pwd_confirm">确认密码：</label>
+                <input type="password" class="form-control" id="pwd_confirm" placeholder="请再次输入您的密码">
+            </div>
+            <div class="form-group">
+                <label for="name">姓名：</label>
+                <input type="text" class="form-control" name="user_name" id="name" placeholder="请输入您的姓名">
+            </div>
+            <div class="form-group">
+                <label for="sex">性别：</label>
+                <select class="form-control" name="user_sex" id="sex">
+                    <option value="先生">先生</option>
+                    <option value="女士">女士</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="number">电话号码：</label>
+                <input type="text" class="form-control" name="user_number" id="number" placeholder="请输入您的电话号码">
+            </div>
+            <div class="form-group">
+                <label for="address">收货地址：</label>
+                <input type="text" class="form-control" name="user_address" id="address" placeholder="请输入您的收货地址">
+            </div>
+            <div class="form-group">
+                <label for="birthday">生日：</label>
+                <input type="date" class="form-control" name="user_birthday" id="birthday">
+            </div>
+
+            <br />
+            <div class="clearfix">
+                <span class="float-right"><button type="submit" class="btn btn-info" style="width: 100px;height: 50px;">注册</button></span>
+            </div>
+            
+        </form>
+
+    </div>
+
+</body>
+
+</html>

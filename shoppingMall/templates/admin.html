@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin | 管理面板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico">
+    <script>
+        function goods_id(goodsId) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('name', 'update_goods_id');
+            input.setAttribute('value', goodsId);
+            input.style.display = "none";
+            document.getElementById(goodsId).appendChild(input);
+            document.getElementById(goodsId).submit();
+        }
+    </script>
+
+    <style>
+        img.logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        span.options {
+            font-weight: bold;
+        }
+
+        label.navbar-text {
+            font-weight: bold;
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            height: 300px;
+        }
+
+        label.goods_list {
+            font-weight: bold;
+            color: aliceblue;
+        }
+
+        label.user_list {
+            font-weight: bold;
+            color: aliceblue;
+        }
+
+        label.admin_list {
+            font-weight: bold;
+            color: aliceblue;
+        }
+
+        div.add {
+            position: absolute;
+            width: 850px;
+            height: 500px;
+            border: 1px solid darkgrey;
+            box-shadow: darkgrey 0px 0px 30px 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            margin: 0 auto;
+            background-color: aliceblue;
+        }
+
+        div.delete {
+            position: absolute;
+            width: 850px;
+            height: 200px;
+            border: 1px solid darkgrey;
+            box-shadow: darkgrey 0px 0px 30px 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            margin: 0 auto;
+            background-color: aliceblue;
+        }
+        div.delete_user {
+            position: absolute;
+            width: 850px;
+            height: 200px;
+            border: 1px solid darkgrey;
+            box-shadow: darkgrey 0px 0px 30px 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            margin: 0 auto;
+            background-color: aliceblue;
+        }
+        div.add_admin {
+            position: absolute;
+            width: 850px;
+            height: 300px;
+            border: 1px solid darkgrey;
+            box-shadow: darkgrey 0px 0px 30px 5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            margin: 0 auto;
+            background-color: aliceblue;
+        }
+        a.nav-link{
+            font-weight: bold;
+            color: black;
+        }
+
+        input.form-control {
+            width: 600px;
+        }
+    </style>
+
+
+</head>
+
+<body style="background-color: chocolate;">
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-secondary navbar-light">
+            <a class="navbar-brand" href="/homepage/"><img src="/static/image/favicon.ico" class="logo"></a>
+            &nbsp;&nbsp;
+            <ul class="navbar-nav">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <li class="nav-item">
+                    <label class="navbar-text">{{ id }} {{ name }} 管理员您好！</label>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/homepage/"><span class="options">返回主页面</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="window.location.href='/logout/'"><span class="options">退出登录</span></a>
+                </li>
+            </ul>
+        </nav>
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#goods_list">商品列表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#add">添加商品</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#delete">删除商品</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#update">修改商品</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#order_list">订单列表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#delete_order">删除订单</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#user_list">用户列表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#delete_user">删除用户</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#admin_list">管理员列表</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#add_admin">添加管理员</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="goods_list" class="container tab-pane active"><br>
+                <div class="col-sm-12">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>商品id</th>
+                                <th>商品名称</th>
+                                <th>商品图片路径</th>
+                                <th>商品价格</th>
+                                <th>商品种类</th>
+                                <th>商品库存</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for goods in goods_list %}
+                            <tr>
+                                <td><label class="goods_list">{{goods.id}}</label></td>
+                                <td><label class="goods_list">{{goods.name}}</label></td>
+                                <td><label class="goods_list">{{goods.image}}</label></td>
+                                <td><label class="goods_list">{{goods.price}}</label></td>
+                                <td><label class="goods_list">{{goods.sort}}</label></td>
+                                <td><label class="goods_list">{{goods.num}}</label></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="add" class="container tab-pane fade"><br>
+                <div class="add">
+                    <br />
+                    <form action="/add_goods/" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">商 品 id ：</span>
+                            </div>
+                            <input type="text" class="form-control" name="add_goods_id" placeholder="请输入商品id" required='required'
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">商品名称：</span>
+                            </div>
+                            <input type="text" class="form-control" name="add_goods_name" placeholder="请输入商品名称" required='required'
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">商品图片：</span>
+                            </div>
+                            <input type="text" class="form-control" name="add_goods_image" placeholder="请输入商品图片路径" required='required'
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">商品价格：</span>
+                            </div>
+                            <input type="number" min="0" max="99999.99" step="0.01" class="form-control" required='required'
+                                name="add_goods_price" placeholder="请输入商品价格" style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">商品种类：</span>
+                            </div>
+                            <select class="form-control" name="add_goods_sort"  required='required' style="width: 600px;margin: 0 auto;">
+                                <option value="手机">手机</option>
+                                <option value="电脑">电脑</option>
+                                <option value="耳机">耳机</option>
+                                <option value="显示器">显示器</option>
+                                <option value="手表">手表</option>
+                                <option value="音箱">音箱</option>
+                                <option value="All" disabled>All</option>
+                            </select>
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">商品库存：</span>
+                            </div>
+                            <input type="number" class="form-control" name="add_goods_num" placeholder="请输入商品库存" required='required'
+                                style="width: 600px;">
+                        </div>
+                        <br />
+
+                        <div class="clearfix">
+                            <span class="float-right"><button type="submit" class="btn btn-info"
+                                    style="width: 100px;height: 50px;">添加</button></span>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div id="delete" class="container tab-pane fade"><br>
+                <div class="delete">
+                    <form action="/delete_goods/" method="POST">
+                        {% csrf_token %}
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">商 品 id ：</span>
+                            </div>
+                            <input type="text" class="form-control" name="delete_goods_id" placeholder="请输入商品id"
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="clearfix">
+                            <span class="float-right"><button type="submit" class="btn btn-success"
+                                    style="width: 100px;height: 50px;">删除</button></span>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div id="update" class="container tab-pane fade"><br>
+                <div class="col-sm-12">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>商品id</th>
+                                <th>商品名称</th>
+                                <th>商品图片路径</th>
+                                <th>商品价格</th>
+                                <th>商品种类</th>
+                                <th>商品库存</th>
+                                <th>更新</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for goods in goods_list %}
+                            <form action="/update_goods_info/" id={{goods.id}} method="POST">
+                                {% csrf_token %}
+                                <tr>
+                                    <td><label class="goods_list">{{goods.id}}</label></td>
+                                    <td><input type="text" name="update_goods_name" value={{goods.name}}></td>
+                                    <td><input type="text" name="update_goods_image" value={{goods.image}}
+                                            style="width: 300px;"></td>
+                                    <td><input type="number" min="0" max="99999.99" step="0.01"
+                                            name="update_goods_price" value={{goods.price}} style="width: 80px;"></td>
+                                    <td>
+                                        <select class="form-control" name="update_goods_sort" style="width: 100px;">
+                                            {% if goods.sort == '手机' %}
+                                            <option value="手机" selected>手机</option>
+                                            <option value="电脑">电脑</option>
+                                            <option value="耳机">耳机</option>
+                                            <option value="显示器">显示器</option>
+                                            <option value="手表">手表</option>
+                                            <option value="音箱">音箱</option>
+                                            <option value="All" disabled>All</option>
+                                            {% endif %}
+                                            {% if goods.sort == '电脑' %}
+                                            <option value="手机">手机</option>
+                                            <option value="电脑" selected>电脑</option>
+                                            <option value="耳机">耳机</option>
+                                            <option value="显示器">显示器</option>
+                                            <option value="手表">手表</option>
+                                            <option value="音箱">音箱</option>
+                                            <option value="All" disabled>All</option>
+                                            {% endif %}
+                                            {% if goods.sort == '耳机' %}
+                                            <option value="手机">手机</option>
+                                            <option value="电脑">电脑</option>
+                                            <option value="耳机" selected>耳机</option>
+                                            <option value="显示器">显示器</option>
+                                            <option value="手表">手表</option>
+                                            <option value="音箱">音箱</option>
+                                            <option value="All" disabled>All</option>
+                                            {% endif %}
+                                            {% if goods.sort == '显示器' %}
+                                            <option value="手机">手机</option>
+                                            <option value="电脑">电脑</option>
+                                            <option value="耳机">耳机</option>
+                                            <option value="显示器" selected>显示器</option>
+                                            <option value="手表">手表</option>
+                                            <option value="音箱">音箱</option>
+                                            <option value="All" disabled>All</option>
+                                            {% endif %}
+                                            {% if goods.sort == '手表' %}
+                                            <option value="手机">手机</option>
+                                            <option value="电脑">电脑</option>
+                                            <option value="耳机">耳机</option>
+                                            <option value="显示器">显示器</option>
+                                            <option value="手表" selected>手表</option>
+                                            <option value="音箱">音箱</option>
+                                            <option value="All" disabled>All</option>
+                                            {% endif %}
+                                            {% if goods.sort == '音箱' %}
+                                            <option value="手机">手机</option>
+                                            <option value="电脑">电脑</option>
+                                            <option value="耳机">耳机</option>
+                                            <option value="显示器">显示器</option>
+                                            <option value="手表">手表</option>
+                                            <option value="音箱" selected>音箱</option>
+                                            <option value="All" disabled>All</option>
+                                            {% endif %}
+                                        </select>
+                                    </td>
+                                    <td><input type="number" name="update_goods_num" value={{goods.num}}
+                                            style="width: 60px;"></td>
+                                    <td><button type="submit" class="btn btn-success" onclick="goods_id('{{goods.id}}')">更新</button></td>
+                                </tr>
+                            </form>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="order_list" class="container tab-pane fade"><br>
+                <div class="col-sm-12">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>订单编号</th>
+                                <th>收货人</th>
+                                <th>电话号码</th>
+                                <th>收货地址</th>
+                                <th>订单金额</th>
+                                <th>下单时间</th>
+                                <th>订单详情</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in order_list %}
+                            <form action='/order_detail/' method="POST">
+                                {% csrf_token %}
+                                <tr>
+                                    <th>{{ order.orderId }}<input type="text" name="order_id" value={{order.orderId}} style="display: none;"></th>
+                                    <th>{{ order.name }}</th>
+                                    <th>{{ order.number }}</th>
+                                    <th>{{ order.address }}</th>
+                                    <th>{{ order.totalPrice }}</th>
+                                    <th>{{ order.time }}</th>
+                                    <th><button type="submit" class="btn btn-info"style="width: 60px;height: 30px;font-size: 10px;">查看</button></th>
+                                </tr>
+                            </form>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="delete_order" class="container tab-pane fade"><br>
+                <div class="delete_order">
+                    <form action="/delete_order/" method="POST">
+                        {% csrf_token %}
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">订单编号 ：</span>
+                            </div>
+                            <input type="text" class="form-control" name="delete_order_id" placeholder="请输入订单编号"
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="clearfix">
+                            <span class="float-right"><button type="submit" class="btn btn-success"
+                                    style="width: 100px;height: 50px;">删除</button></span>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            
+            <div id="user_list" class="container tab-pane fade"><br>
+                <div class="col-sm-12">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>密码</th>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>号码</th>
+                                <th>收货地址</th>
+                                <th>生日</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in user_list %}
+                            <tr>
+                                <td><label class="user_list">{{user.id}}</label></td>
+                                <td><label class="user_list">{{user.password}}</label></td>
+                                <td><label class="user_list">{{user.name}}</label></td>
+                                <td><label class="user_list">{{user.sex}}</label></td>
+                                <td><label class="user_list">{{user.number}}</label></td>
+                                <td><label class="user_list">{{user.address}}</label></td>
+                                <td><label class="user_list">{{user.birthday}}</label></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="delete_user" class="container tab-pane fade"><br>
+                <div class="delete_user">
+                    <form action="/delete_user/" method="POST">
+                        {% csrf_token %}
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">用户id ：</span>
+                            </div>
+                            <input type="text" class="form-control" name="delete_user_id" placeholder="请输入用户id"
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="clearfix">
+                            <span class="float-right"><button type="submit" class="btn btn-success"
+                                    style="width: 100px;height: 50px;">删除</button></span>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div id="admin_list" class="container tab-pane fade"><br>
+                <div class="col-sm-12">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>密码</th>
+                                <th>姓名</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for admin in admin_list %}
+                            <tr>
+                                <td><label class="admin_list">{{admin.id}}</label></td>
+                                <td><label class="admin_list">{{admin.password}}</label></td>
+                                <td><label class="admin_list">{{admin.name}}</label></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="add_admin" class="container tab-pane fade"><br>
+                <div class="add_admin">
+                    <br />
+                    <form action="/add_admin/" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">管理员 id ：</span>
+                            </div>
+                            <input type="text" class="form-control" name="add_admin_id" placeholder="请输入管理员id" required='required'
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">管理员密码：</span>
+                            </div>
+                            <input type="password" class="form-control" name="add_admin_password" placeholder="请输入管理员密码" required='required'
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">管理员姓名：</span>
+                            </div>
+                            <input type="text" class="form-control" name="add_admin_name" placeholder="请输入管理员姓名" required='required'
+                                style="width: 600px;">
+                        </div>
+                        <br />
+                        <div class="clearfix">
+                            <span class="float-right"><button type="submit" class="btn btn-info"
+                                    style="width: 100px;height: 50px;">添加</button></span>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
