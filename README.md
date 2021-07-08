@@ -1,2 +1,3 @@
 # shopping_mall
-一些做过的小项目
+管理员账号：admin
+管理员密码：admin
